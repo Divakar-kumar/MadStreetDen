@@ -1,0 +1,64 @@
+
+<div ng-controller="ThreadController" ng-repeat="group in groupandThreadCollections track by $index" ng-init="groupIndex = $index">
+
+     <div class="panel-heading bg-faded-darken">
+                  <div class="panel-title">{{ group.groupname }}</div>
+                </div>
+<div class="panel" ng-repeat="chat in group.threads track by $index" ng-init="threadIndex = $index" ng-class="{'owner':chat.isOwner}">
+
+                <div class="panel-body">
+                  <div class="message-wrapper message-inbox">
+                    <div id="messageScroll" class="message-wrapper-inner">
+                <div class="media">
+                        <div class="media-left"><a class="circle-box" href=""><img ng-src="{{chat.isOwner && 'https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303' || 'https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/12.jpg?alt=media&token=85eecf58-ac70-45e0-a509-ec2993acbf51'}}" alt=""><span class="dot dot-online"></span>
+                        </a>
+                             <div style="margin-top: 12px;">
+                                 <p>{{ chat.sendername }}</p>
+                                <span>{{ chat.date }}</span>
+                            </div>
+
+                        </div>
+                        <div class="media-body">
+                          <div class="message-is">
+                            <p>{{ chat.message }}</p>
+                          </div>
+                        </div>
+                    <div class="media" ng-repeat="replyChat in chat.replyMessages" ng-class="{'owner':replyChat.isOwner}">
+                        <div class="media-left"><a class="circle-box" href=""><img ng-src="{{replyChat.isOwner && 'https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303' || 'https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/12.jpg?alt=media&token=85eecf58-ac70-45e0-a509-ec2993acbf51'}}" alt=""><span class="dot dot-online"></span>
+                        </a>
+                             <div style="margin-top: 12px;">
+                                 <a ng-click="directMessage()" href="#!/DM/{{ replyChat.senderUID }}@{{ replyChat.currentUID  }}"><p>{{ replyChat.sendername }}</p></a>
+                                <span style="color:#939FAD">{{ replyChat.date }}</span>
+                            </div>
+
+                        </div>
+                        <div class="media-body">
+                          <div class="message-is">
+                            <p>{{ replyChat.message }}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                    <div class="row">
+                    <div class="col-sm-9">
+                      <div class="form-group">
+                        <input id="ThreadMessage{{ groupIndex }}{{ threadIndex }}" class="form-control" type="text">
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                        <button ng-click="sendThreadMessage(groupIndex,threadIndex,group.groupkey,chat.chatUID)" class="btn btn-primary btn-block" type="button">SEND</button>
+                      </div>
+                    </div>
+                  </div>
+                      </div>
+
+</div>
+
+

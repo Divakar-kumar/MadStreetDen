@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html ng-app="chatapp" lang="en-us">
+{% load static %}
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MADSTREET DEN DASHBOARD</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+    <!-- lib-->
+   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300" rel="stylesheet">
+
+    <!-- Theme-->
+    <!-- Concat all lib & plugins css-->
+    <link id="mainstyle" rel="stylesheet" href="{% static "chatapp/css/stylesheets/theme-libs-plugins.css"%}">
+    <link id="mainstyle" rel="stylesheet" href="{% static "chatapp/css/stylesheets/skin.css"%}">
+
+    <!-- Demo only-->
+    <link id="mainstyle" rel="stylesheet" href="{% static "chatapp/css/stylesheets/demo.css"%}">
+
+    <!-- This page only-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+    <script src="{% static "chatapp/js/scripts/lib/html5shiv.js"%}"></script>
+    <script src="assets/scripts/lib/respond.js"></script><![endif]-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static "chatapp/js/scripts/lib/modernizr-custom.js"%}"></script>
+    <script src="{% static "chatapp/js/scripts/lib/respond.js"%}"></script>
+      <script src="{% static "chatapp/js/scripts/lib/jquery-scrolltofixed.js"%}"></script>
+    <!-- Possible Classes
+    ** Gradient style:
+    * orchid
+    * cadetblue
+    * joomla
+    * influenza
+    * moss
+    * mirage
+    * stellar
+    * servquick
+
+    ** Flat style:
+    * f-dark
+    * f-dark-blue
+    * f-blue
+    * f-green
+
+    ** Layout control
+    * minibar
+    * layout-drawer (changed the var on top)
+
+    e.g
+    <body class="moss layout-drawer">
+    -->
+      <style>
+          .alice{
+    background: aliceblue;
+}
+      </style>
+  </head>
+
+  <body class="orchid" ng-controller="HomeController">
+{% verbatim %}
+    <!-- #SIDEMENU-->
+    <div class="mainmenu-block" style="background:white !important;color:black">
+      <!-- SITE MAINMENU-->
+      <nav class="menu-block">
+        <ul class="nav">
+          <li class="nav-item mainmenu-user-profile" style="background:white !important;color:black !important"><a href="">
+              <div class="circle-box"><img src="https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303" alt="">
+                <div class="dot dot-online"></div>
+              </div>
+              <div class="menu-block-label"><b>{{ currentusercollection.username }}</b><br>{{ currentusercollection.email }}</div></a></li>
+        </ul>
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link" href="#!/"><i class="icon ion-home"></i>
+              <div class="menu-block-label">Home</div></a></li>
+          <li class="nav-item">
+              <div class="layout-sidebar">
+                  <div class="menu-block-label" style="font-weight: bold">Groups<a href="#!/create"><i style="margin-left: 15px" class="em em-heavy_plus_sign"></i></a></div>
+                  <hr>
+
+            <div class="list-group"><a class="list-group-item" href="" ng-click="showDetails(group.key)" ng-repeat="group in groupCollection track by $index"> #{{ group.groupname }} </a></div><a class="sidebar-togger" href="#"></a>
+            <div class="list-group">
+
+                <div class="menu-block-label" style="font-weight: bold">Direct Messages <a href="#!/search"><i style="margin-left: 15px" class="em em-heavy_plus_sign"></i></a></div>
+                  <hr>
+
+                <a class="list-group-item" ng-click="showDMDetails(dm.key)" href="" ng-repeat="dm in DMNameCollection track by $index">
+                <div class="media" >
+                  <div class="media-left">
+                    <div class="circle-box circle-box-sm"><img class="circle-object" src="https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303" alt="">
+                      <div class="dot dot-online"></div>
+                    </div>
+                  </div>
+                  <div class="media-body media-middle"> {{ dm.username }} & you </div>
+                    <span class="badge badge-danger status" style="float:right;top:-20px;right:50px">{{ notseenCount }}</span>
+                </div>
+                    </a>
+
+
+            </div>
+
+                  <hr>
+
+                  <div class="list-group">
+
+              <a href="#!/allthread" style="font-weight: bold;cursor: pointer">  <div class="menu-block-label" style="font-weight: bold">All threads <a href="#!/search"></a></div></a>
+
+
+
+
+            </div>
+
+
+
+          </div></li>
+
+        </ul>
+        <!-- END SITE MAINMENU-->
+      </nav>
+    </div>
+
+    <!-- #MAIN-->
+    <div class="main-wrapper">
+
+      <!-- VIEW WRAPPER-->
+      <div class="view-wrapper">
+
+        <!-- TOP WRAPPER-->
+        <div class="topbar-wrapper">
+
+          <!-- NAV FOR MOBILE-->
+          <div class="topbar-wrapper-mobile-nav"><a class="topbar-togger js-minibar-toggler" href="#"><i class="icon ion-ios-arrow-back hidden-md-down"></i><i class="icon ion-navicon-round hidden-lg-up"></i></a><a class="topbar-togger pull-xs-right hidden-lg-up js-nav-toggler" href="#"><i class="icon ion-android-person"></i></a>
+
+            <!-- ADD YOUR LOGO HEREText logo: a.topbar-wrapper-logo(href="#") AdminHero
+            --><a class="topbar-wrapper-logo demo-logo" href="index.html"><p>MAD CHAT</p></a>
+          </div>
+          <!-- END NAV FOR MOBILE-->
+
+          <!-- SEARCH-->
+          <div class="topbar-wrapper-search">
+            <form>
+              <input class="form-control" type="search" placeholder="Search"><a class="topbar-togger topbar-togger-search js-close-search" href="#"><i class="icon ion-close"></i></a>
+            </form>
+          </div>
+          <!-- END SEARCH-->
+
+          <!-- TOP RIGHT MENU-->
+          <ul class="nav navbar-nav topbar-wrapper-nav">
+            <li class="nav-item"><a class="nav-link js-search-togger" href="#"><i class="icon ion-ios-search-strong"></i></a></li>
+
+
+
+            <li class="nav-item dropdown"><a class="nav-link" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon ion-android-notifications-none"></i><span class="badge badge-danger status">{{ notificationCount }}</span></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header">Notifications ({{ notificationCount }})</div> <div ng-show="hasData"><a ng-click="clearNotifications()" style="cursor: pointer"><span>Clear All</span></a></div>
+                <div class="dropdown-menu-inner"><a class="dropdown-item media circle-box" href="" ng-repeat="notifications in customNotificaitons">
+                    <div class="media-left media-middle"><img class="media-object circle-object" src="https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303"alt=""></div>
+                    <div class="media-body" ng-if="notifications.postedgroup!='DM'">
+                      <div class="media-heading">{{ notifications.postedby}} posted @ {{ notifications.postedgroup }}</div>
+                      <p class="text-muted small">{{ notifications.postedmessage}} - {{ notifications.posteddate }}</p>
+                    </div>
+                <div class="media-body" ng-if="notifications.postedgroup=='DM'">
+                      <div class="media-heading">{{ notifications.postedby}} messaged you</div>
+                      <p class="text-muted small">{{ notifications.postedmessage}} - {{ notifications.posteddate }}</p>
+                    </div>
+                </a>
+                </div>
+
+                  <div class="dropdown-menu-inner" ng-show="!hasData"><a class="dropdown-item media circle-box" href="">
+                    <div class="media-left media-middle"></div>
+                    <div class="media-body">
+                      <div class="media-heading">No Notifications</div>
+
+                    </div></a>
+                </div>
+
+                  <a class="dropdown-item" href="">
+                  <div class="text-xs-center"><i class="ion-more"></i></div></a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link close-mobile-nav js-close-mobile-nav" href="#"><i class="icon ion-close"></i></a></li>
+            <!-- END TOP RIGHT MENU-->
+          </ul>
+        </div>
+        <!--END TOP WRAPPER-->
+
+
+ <div>
+
+              <div class="widget">
+                <div class="w-section bg-faded">
+                  <div class="row text-xs-center">
+                    <div class="col-xs-4">
+                      <a href="#!/create"><div class="text-desc">Create Group</div><div class="btn btn-block btn-rounded btn-primary">Create</div>
+</a>
+                    </div>
+                    <div class="col-xs-4">
+                      <a href="#!/add"><div class="text-desc">Add memebers</div><div class="btn btn-block btn-rounded btn-info">Add</div>
+                      </a>
+                    </div>
+                    <div class="col-xs-4">
+                      <a href="#!/search"><div class="text-desc">Direct chat</div><div class="btn btn-block btn-rounded btn-warning">Chat</div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           <ng-view></ng-view>
+
+
+
+        <div class="container-fluid">
+
+          <div >
+
+
+            <div >
+
+            </div>
+          </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+
+      </div>
+      <!-- END VIEW WAPPER-->
+
+    </div>
+    <!-- END MAIN WRAPPER-->
+
+
+    <!-- WEB PERLOAD-->
+    <div id="preload">
+      <ul class="loading">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+{% endverbatim %}
+
+    <!-- Lib-->
+    <script src="{% static "chatapp/js/scripts/lib/jquery-1.11.3.min.js"%}"></script>
+    <script src="{% static "chatapp/js/scripts/lib/jquery-ui.js"%}"></script>
+    <script src="{% static "chatapp/js/scripts/lib/tether.min.js"%}"></script>
+
+    <!-- Bootstrap js-->
+    <!-- script(src="assets/bootstrap/js/bootstrap.min.js")-->
+
+    <!-- Cookie js-->
+    <!-- script(src="assets/scripts/plugins/js.cookie.js")-->
+
+    <!-- Moment: Full featured date library for parsing, validating, manipulating, and formatting dates.-->
+     <script src="{% static "chatapp/js/scripts/plugins/moment.min.js"%}"></script>
+
+    <!-- Fastclick: Polyfill to remove click delays on browsers with touch UIs.-->
+    <!-- script(src="assets/scripts/plugins/fastclick.js")-->
+
+    <!-- Masonry: Grid layout library.-->
+    <!-- script(src="assets/scripts/plugins/masonry.pkgd.min.js")-->
+
+    <!-- Peity: is a simple jQuery plugin that converts an element's content into a simple <svg>.-->
+    <!-- script(src="assets/scripts/plugins/jquery.peity.min.js")-->
+
+    <!-- imagesloaded: Detect when images have been loaded.-->
+    <!-- script(src="assets/scripts/plugins/imagesloaded.pkgd.js")-->
+
+    <!-- MatchHeight: A responsive equal heights-->
+    <!-- script(src="assets/scripts/plugins/jquery.matchHeight.js")-->
+
+    <!-- Select2: JQuery based replacement for select boxes-->
+    <!-- script(src="assets/scripts/plugins/select2.full.min.js")-->
+
+    <!-- jQuery multiselect: jQuery plugin which is a drop-in replacement for the standard <select> element-->
+    <!-- script(src="assets/scripts/plugins/jquery.multi-select.js")-->
+
+    <!-- Bootstrap-tagsinput: jQuery tags input plugin based on Twitter Bootstrap.-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-tagsinput.js")-->
+
+    <!-- Bootstrap-maxlength: Display the maximum lenght of the field-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-maxlength.min.js")-->
+
+    <!-- Chartjs: Simple HTML5 Charts using the canvas element-->
+    <!-- script(src="assets/scripts/plugins/Chart.min.js")-->
+    <!-- script(src="assets/scripts/plugins/Chart.config.js")-->
+
+    <!-- Bootstrap-touchspin: A mobile and touch friendly input spinner component for Bootstrap 3.-->
+    <!-- script(src="assets/scripts/plugins/jquery.bootstrap-touchspin.min.js")-->
+
+    <!-- Date Range Picker: A JavaScript component for choosing date ranges.-->
+    <!-- script(src="assets/scripts/plugins/daterangepicker.js")-->
+
+    <!-- jquery.timepicker: A lightweight, customizable javascript timepicker plugin.-->
+    <!-- script(src="assets/scripts/plugins/jquery.timepicker.js")-->
+
+    <!-- Bootstrap-submenu-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-submenu.js")-->
+
+    <!-- Prismjs: Code syntax highlighting library-->
+    <!-- script(src="assets/scripts/plugins/prism.js")-->
+
+    <!-- bootstrap-table: An extended Bootstrap table-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-table.min.js")-->
+
+    <!-- Grid layout-->
+    <!-- script(src="assets/scripts/plugins/jquery.gridster.js")-->
+
+    <!-- super simple slider-->
+    <!-- script(src="assets/scripts/plugins/sss.min.js")-->
+
+    <!-- Easy-pie-chart: Lightweight  pie charts-->
+    <!-- script(src="assets/scripts/plugins/jquery.easypiechart.min.js")-->
+
+    <!-- Summernote: Lightweight html5 editor-->
+    <!-- script(src="assets/scripts/plugins/summernote.min.js")-->
+
+    <!-- Bootstrap plugin for markdown editing-->
+    <!-- script(src="assets/scripts/plugins/behave.js")-->
+    <!-- script(src="assets/scripts/plugins/markdown.js")-->
+    <!-- script(src="assets/scripts/plugins/to_markdown.js")-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-markdown.js")-->
+
+    <!-- DataTables: It is a highly flexible HTML table.-->
+    <!-- script(src="assets/scripts/plugins/jquery.dataTables.min.js")-->
+    <!-- script(src="assets/scripts/plugins/dataTables.bootstrap.js")-->
+
+    <!-- Ladda: Buttons with built-in loading indicators.-->
+    <!-- script(src="assets/scripts/plugins/spin.min.js")-->
+    <!-- script(src="assets/scripts/plugins/ladda.min.js")-->
+
+    <!-- Counterup: Counts up to a targeted number when the number becomes visible.-->
+    <!-- script(src="assets/scripts/plugins/waypoints.min.js")-->
+    <!-- script(src="assets/scripts/plugins/jquery.counterup.min.js")-->
+
+    <!-- Bootstrap-select: Bootstrap's dropdown.js to style and bring additional functionality to normal select boxes.-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-select.js")-->
+
+    <!-- Bootstrap-select: Bootstrap's dropdown.js to style and bring additional functionality to normal select boxes.-->
+    <!-- script(src="assets/scripts/plugins/bootstrap-datepicker.js")-->
+
+    <!-- jQuery asColorPicker-->
+    <!-- script(src="assets/scripts/plugins/jquery-asColor.js")-->
+    <!-- script(src="assets/scripts/plugins/jquery-asGradient.js")-->
+    <!-- script(src="assets/scripts/plugins/jquery-asColorPicker.js")-->
+
+    <!-- Labelauty jQuery Plugin: checkboxes and radio buttons-->
+    <!-- script(src="assets/scripts/plugins/jquery-labelauty.js")-->
+
+    <!-- Simple upload ui-->
+    <!-- script(src="assets/scripts/plugins/upload.js")-->
+
+    <!-- parsleyjs: the ultimate JavaScript form validation library-->
+    <!-- script(src="assets/scripts/plugins/parsley.min.js")-->
+
+    <!-- Owl Carousel 2: Touch enabled jQuery plugin that lets you create a beautiful responsive carousel slider.-->
+    <!-- script(src="assets/scripts/plugins/owl.carousel.js")-->
+
+    <!-- Theme js-->
+    <!-- Concat all plugins js-->
+
+ <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCu9-rUQHY9ERelSl0dm9BXR082Otzm4Mw",
+    authDomain: "madstreetden-442b5.firebaseapp.com",
+    databaseURL: "https://madstreetden-442b5.firebaseio.com",
+    projectId: "madstreetden-442b5",
+    storageBucket: "madstreetden-442b5.appspot.com",
+    messagingSenderId: "400841163153"
+  };
+  firebase.initializeApp(config);
+</script>
+ <script src="{% static "chatapp/js/scripts/plugins/notify.js"%}"></script>
+
+    <script src="{% static "chatapp/js/scripts/theme/theme-plugins.js"%}"></script>
+    <script src="{% static "chatapp/js/scripts/theme/main.js"%}"></script>
+    <!-- Below js just for this demo only-->
+    <script src="{% static "chatapp/js/scripts/demo/demo-skin.js"%}"></script>
+    <script src="{% static "chatapp/js/scripts/demo/bar-chart-menublock.js"%}"></script>
+
+
+
+    <script src="{% static "chatapp/js/app.js" %}">
+
+
+</script>
+<script src="{% static "chatapp/js/controllers/LoginController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/HomeController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/CreateGroupController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/ChatController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/DirectMessageController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/ThreadController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/SearchMembersController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/AddMembersController.js" %}"></script>
+<script src="{% static "chatapp/js/services/FirebaseChannelService.js" %}"></script>
+<script src="{% static "chatapp/js/services/FirebaseChatService.js" %}"></script>
+<script>
+    function loader()
+    {
+           $('#preload').delay(1000).fadeOut('slow');
+            return $('body').delay(1500).css({
+            'overflow': 'visible'
+            });
+    }
+</script>
+  </body>
+</html>

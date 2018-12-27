@@ -1,0 +1,32 @@
+   <div style="width:80% !important;padding:20px;margin-left:50px">
+              <div class="panel">
+                <div class="panel-heading">
+                  <h6 class="panel-title">Direct chat with</h6>
+                </div>
+                <div class="panel-body">
+                  <form autocomplete="on">
+                    <div class="form-group" style="overflow-y: scroll;max-height:200px">
+                      <label class="form-form-control-label" for="formBasicPassword">Direct Chat with</label>
+                      <input class="form-control" ng-keyup="invitechange(sendinvites)" ng-model="sendinvites" id="formBasicPassword" type="text" name="inputPassword" placeholder="Search by name" autocomplete="off">
+                        <a class="list-group-item" href="" ng-repeat="userdata in filterinviteusers" ng-click="selectUser(userdata)">
+                        <div class="media">
+                          <div class="media-left">
+                            <div class="circle-box circle-box-sm"><img class="circle-object" src="https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303" alt="">
+                              <div class="dot dot-offline"></div>
+                            </div>
+                          </div>
+                          <div class="media-body media-middle">{{ userdata.name }}</div>
+                        </div>
+                        </a>
+                    </div>
+
+                    <div class="form-group" style="text-align: end !important;">
+<button class="btn btn-secondary" type="button">Cancel</button>
+                      <button ng-click="chatConnect()" class="btn btn-warning" type="button">Chat</button>
+                    </div>
+                  </form>
+                  <!-- END BASIC FORM-->
+                </div>
+              </div>
+              <!-- END PANEL-->
+            </div>

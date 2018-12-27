@@ -1,0 +1,121 @@
+<!doctype html>
+<html ng-app="chatapp">
+{% load static %}
+  <head>
+    <title>MAD STREET DEN</title>
+
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!--font awesome icons-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+      <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+
+<!--   Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300" rel="stylesheet">
+
+
+      <link rel="stylesheet" href="{% static "chatapp/css/style.css" %}">
+<style>
+.alice{
+    background: aliceblue;
+}
+</style>
+</head>
+<body ng-controller="LoginController">
+{% csrf_token %}
+{% verbatim %}
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width'}"></toaster-container>
+   <!--col 1 left side-->
+
+  <div class="col1"></div>
+  <!--col 2 right side-->
+   <div class="col2" ng-show="isSignup">
+     <header>MAD CHAT </header>
+     			<p>Welcome to the Mad Street Den official chat app!<br>
+                    <div>
+       <p>By signing up you agree to hire me as a part of MadStreetDen team <i class="em em-stuck_out_tongue"></i></p>
+</div>
+ <!-- Sign up form-->
+  <form >
+      <div class="row" >
+        <div class="col s12">
+            <label>Enter username:
+          </label>
+            <input ng-model="username"  type="text"                  class="validate" required>
+          <label>Enter                 email:
+          </label>
+            <input ng-model="emailtxt"  type="email"                  class="validate" required>
+ <label>Enter                 password:
+          </label>
+            <input ng-model="passwordtxt"  type="password"                  class="validate" required>
+
+             <button ng-click="signup()" class="btn waves-effect waves-                 light " type="submit" name="action">
+               Sign Up!
+              </button>
+            <button ng-click="gotoLogin()" class="btn waves-effect waves-                 light " type="submit" name="action">
+               Already registered user?
+              </button>
+          </div>
+        </div>
+
+     </form>
+
+
+       <!--footer-->
+    </div>
+
+   <div class="col2" ng-show="isLogin">
+     <header>MAD CHAT </header>
+     			<p>Welcome to the Mad Street Den official chat app!
+      <p>Login to continue!</p>
+
+ <!-- Sign up form-->
+  <form >
+      <div class="row">
+        <div class="col s12">
+          <label>Enter                 email:
+          </label>
+            <input ng-model="email"  type="email"                  class="validate" required>
+ <label>Enter                 password:
+          </label>
+            <input ng-model="password"  type="password"                  class="validate" required>
+
+             <button ng-click="login()" class="btn waves-effect waves-                 light " type="submit" name="action">
+               Login
+              </button>
+            <button ng-click="gotoSignup()" class="btn waves-effect waves-                 light " type="submit" name="action">
+               Signup
+              </button>
+          </div>
+        </div>
+
+     </form>
+
+
+       <!--footer-->
+    </div>
+{% endverbatim %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+<script src="{% static "chatapp/js/scripts/plugins/notify.js"%}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+    <script src="{% static "chatapp/js/app.js" %}">
+
+
+</script>
+<script src="{% static "chatapp/js/controllers/LoginController.js" %}"></script>
+<script src="{% static "chatapp/js/controllers/HomeController.js" %}"></script>
+<script>
+
+</script>
+</html>

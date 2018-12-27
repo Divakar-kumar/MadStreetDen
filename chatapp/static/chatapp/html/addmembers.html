@@ -1,0 +1,40 @@
+   <div style="width:80% !important;padding:20px;margin-left:50px">
+              <div class="panel">
+                <div class="panel-heading">
+                  <h6 class="panel-title">Send Invites to</h6>
+                </div>
+                <div class="panel-body">
+                  <form autocomplete="on">
+                      <div class="form-group ">
+                      <label class="form-form-control-label" for="formBasicPassword">Select a group</label>
+                      <select class="form-control" data-plugin="selectpicker" data-live-search="true" ng-change="updateGroup(selectedGroup)" ng-model="selectedGroup">
+                        <option ng-repeat="group in groupCollection" value="{{ group.key }}" >{{ group.groupname }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="overflow-y: scroll;max-height:200px">
+                      <label class="form-form-control-label" for="formBasicPassword">Send Invites to</label>
+                      <input class="form-control" ng-keyup="addmemberchanges(addmembers)" ng-model="addmembers" id="invitepopulate" type="text" placeholder="Search by name" autocomplete="on">
+                                 <a class="list-group-item" href="" ng-repeat="userdata in filteradduser" ng-click="fillmemberTextbox(userdata,$index)">
+                        <div class="media">
+                          <div class="media-left">
+                            <div class="circle-box circle-box-sm"><img class="circle-object" src="https://firebasestorage.googleapis.com/v0/b/madstreetden-442b5.appspot.com/o/0.jpg?alt=media&token=1c5f600d-b4b7-4ed0-9b3f-87ccb4373303" alt="">
+                              <div class="dot dot-offline"></div>
+                            </div>
+                          </div>
+                          <div class="media-body media-middle">{{ userdata.name }}</div>
+                        </div>
+                        </a>
+                    </div>
+                       <div class="form-group">
+<div class="tag-cloud"><a ng-repeat="usertag in selectedaddmembers track by $index" href="" ng-click="removememeber(usertag.uid)">{{ usertag.name }} &#10006;</a></div>
+                      </div>
+                    <div class="form-group" style="text-align: end !important;">
+<button class="btn btn-secondary" type="button">Cancel</button>
+                      <button ng-click="addmemberstogroup()" class="btn btn-info" type="button">Invite</button>
+                    </div>
+                  </form>
+                  <!-- END BASIC FORM-->
+                </div>
+              </div>
+              <!-- END PANEL-->
+            </div>

@@ -1,0 +1,93 @@
+ body{
+  display:flex;
+  flex-direction:row;
+  height:100vh;
+  margin:0;
+}
+.col1{
+  background-image:url(https://www.thenewsminute.com/sites/default/files/styles/news_detail/public/Mad%20Street%20Den%20Chennai%20Office_TNM%20file.jpeg?itok=z3RECmGT);
+
+  background-repeat:no-repeat;
+background-size: cover;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+ height:700px;
+  margin:0;
+  padding:0;
+}
+.col2{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:4em;
+  max-height:800px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+a, a:hover, a:active, a:visited, a:focus {
+    text-decoration:none;
+}
+header{
+  font-size:90px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.col2 p{
+  letter-spacing:.1em;
+  line-height:2em;
+  text-align:justify;
+}
+
+.col2 form{
+  margin-top:5em;
+}
+.col2 label{
+  font-weight:bold;
+  font-size:12px;
+}
+
+.footer-container{
+  margin-top:100px;
+}
+
+/*media queries*/
+
+@media screen and (max-width:1200px){
+  body{
+    display:flex;
+    flex-direction:column;
+  }
+  .col1{
+background-image:url(https://pbs.twimg.com/media/DI7_wjQUwAA4krE.jpg);
+  background-size:cover;
+  background-repeat:no-repeat;
+
+  height:100vh;
+  }
+}
+
+@media screen and (max-width:638px){
+  body{
+    margin:5em;
+    padding:2em;
+  }
+  header{
+    font-size:60px;
+  }
+}
+
+@media screen and (max-width:532px){
+  header{
+    font-size:40px;
+  }
+}
+@media screen and (max-width:380px){
+  body{
+    margin:3em;
+    padding:1em;
+  }
+  header{
+  font-size:40px;
+}
+}
